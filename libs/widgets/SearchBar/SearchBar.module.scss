@@ -1,0 +1,46 @@
+.searchBarContainer {
+  position: relative;
+  display: flex;
+  background-color: rgb(101, 15, 15);
+  padding: 3px 15px 3px 18px;
+  align-items: center;
+  border-radius: 20px;
+  overflow: hidden;
+
+  .searchIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .searchInput {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .inputField {
+      font-size: 1rem;
+      padding: 10px 10px;
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: white;
+
+      &::placeholder {
+        color: rgb(188, 180, 180);
+      }
+    }
+
+    > .closeIcon {
+      cursor: pointer;
+      display: none;
+      transform: translateY(2px);
+
+      &.closeIconActive {
+        display: inline-block;
+      }
+    }
+  }
+}
