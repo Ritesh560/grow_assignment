@@ -1,0 +1,61 @@
+.stocksContainer {
+  padding: 30px 10% 0 10%;
+
+  .tabs {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 10px;
+
+    .tab {
+      font-weight: 500;
+      padding: 0 0 5px 0;
+      cursor: pointer;
+      &.active {
+        font-weight: 600;
+        border-bottom: 3px solid brown;
+      }
+    }
+  }
+
+  .cards {
+    .card {
+      background: #ffffff;
+      border-radius: 15px;
+      position: relative;
+      width: 200px;
+      padding: 15px;
+      cursor: pointer;
+      border: 1px solid #f0eeee;
+      filter: drop-shadow(-2px 4px 20px rgba(57, 71, 89, 0.04));
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font: 500;
+
+      &:hover {
+        box-shadow: 4px 13px 50px 0px #3b39591f;
+      }
+
+      .icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 1px solid rgb(154, 147, 147);
+      }
+
+      .title {
+        font-size: 18px;
+      }
+      .stats {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        .gain {
+          font-size: 14px;
+          color: green;
+        }
+      }
+    }
+  }
+}

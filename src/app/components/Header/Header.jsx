@@ -1,5 +1,5 @@
 import React from "react"
-import SearchBar from "../../../libs/widgets/SearchBar/SearchBar"
+import SearchBar from "../../../../libs/widgets/SearchBar/SearchBar"
 import styles from "./Header.module.scss"
 
 const Header = () => {
