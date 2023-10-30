@@ -2,7 +2,8 @@
 import { useEffect } from "react"
 import styles from "./SearchBar.module.scss"
 
-// import { Close, Search } from "@ro-email-ticketing/icons"
+import Search from "../../icons/search.svg"
+import Image from "next/image"
 
 const SearchBar = ({ value, setValue, width = "100%", height, onSearch, className, onEnter, searbarRef = { current: null }, onSearchEmpty, placeholder = "Search", ...rest }) => {
   useEffect(() => {
@@ -16,7 +17,9 @@ const SearchBar = ({ value, setValue, width = "100%", height, onSearch, classNam
 
   return (
     <div className={`${styles.searchBarContainer} ${className ?? ""}`} style={{ width: width, height: height }} ref={searbarRef}>
-      <div className={styles.searchIcon}>{/* <Search /> */}s</div>
+      <div className={styles.searchIcon}>
+        <Image src={Search} alt="My SVG" width={15} height={15} className={styles.search} />
+      </div>
       <div className={styles.searchInput}>
         <input type="text" className={styles.inputField} placeholder="Search stoks & etfs" />
         {value && (
