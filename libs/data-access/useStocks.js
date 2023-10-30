@@ -1,8 +1,9 @@
 import { useMutation, useQuery } from "react-query"
 import { PublicApi } from "./api"
 
-const useStocks = ({ symbol }) => {
-  const apikey = "N8QK8MH99NFL7D3F"
+const useStocks = ({ symbol, interval, functionType }) => {
+  const apikey = "RJCJTT8U6KKU3TZ3"
+
   const getTopStocks = () => {
     return PublicApi.get(`/query?function=TOP_GAINERS_LOSERS&apikey=${apikey}`)
   }
@@ -13,13 +14,24 @@ const useStocks = ({ symbol }) => {
   }
   const { data: stockDetails, refetch: fetchStockDetails, isLoading: stockDetailsfetching } = useQuery(["getStockDetails", { symbol }], getStockDetails)
 
+  const getStockGraph = () => {
+    return PublicApi.get(`/query?function=${functionType}&symbol=${symbol}${interval ? `&interval=${interval}min` : ""}&apikey=${apikey}`)
+  }
+  const { data: stockGraph, refetch: fetchStockGraph, isLoading: stockGraphfetching } = useQuery(["getStockGraph", { symbol, interval, functionType }], getStockGraph)
+
   return {
+    //top stocks
+    topStocks,
+    fetchTopStocks,
+    topStocksfetching,
+    //stock details
     stockDetails,
     fetchStockDetails,
     stockDetailsfetching,
-    stockDetails,
-    fetchStockDetails,
-    stockDetailsfetching,
+    //intraday
+    stockGraph,
+    fetchStockGraph,
+    stockGraphfetching,
   }
 }
 

@@ -1,12 +1,21 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import styles from "./Stockdetails.module.scss"
 import Image from "next/image"
 import generalStock from "../../../../libs/assets/icons/general_stock.png"
 import useStocks from "../../../../libs/data-access/useStocks"
+import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts"
 
 function StockDetails() {
-  const { stockDetails } = useStocks({ symbol: "IBM" })
-  console.log(stockDetails)
+  const functionTypes = ["TIME_SERIES_INTRADAY", "TIME_SERIES_DAILY", "TIME_SERIES_WEEKLY", "TIME_SERIES_MONTHLY"]
+  const [functionType, setFunctionType] = useState(0)
+  const { stockDetails, stockGraph } = useStocks({ symbol: "IBM", interval: "60", functionType: functionTypes[functionType] })
+  const [graphData, setGraphData] = useState({})
+
+  useEffect(() => {
+    // if (stockGraph?.data) stockGraph?.data?.map((data) => {})
+  }, [stockGraph])
+
+  console.log("stockGraph", stockGraph)
 
   return (
     <div className={styles.stockDetails}>
@@ -22,7 +31,17 @@ function StockDetails() {
           <p className={styles.gain}>+45%</p>
         </div>
       </div>
-      <div className={styles.graph}></div>
+      <div className={styles.graph}>
+        <LineChart width={800} height={300} data={stockGraph?.data?.["Time Series (60min)"]} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="close" stroke="#8884d8" dataConvertor={(value) => parseInt(value)} />
+          {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
+        </LineChart>
+      </div>
       <div className={styles.description}>
         <h2>About {stockDetails?.data?.Name}</h2>
         <div className={styles.seperator}></div>

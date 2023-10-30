@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 
 import styles from "./Stockes.module.scss"
 import useStocks from "../../../../libs/data-access/useStocks"
