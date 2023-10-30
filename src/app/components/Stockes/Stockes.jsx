@@ -1,10 +1,17 @@
 "use client"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import styles from "./Stockes.module.scss"
+import useStocks from "../../../../libs/data-access/useStocks"
 
 const Stockes = () => {
   const [activeTab, setActiveTab] = useState(0)
+  const { topGainers } = useStocks()
+
+  useEffect(() => {
+    console.log("gainers", topGainers?.data)
+  }, [topGainers])
+
   return (
     <div className={styles.stocksContainer}>
       <div className={styles.tabs}>
@@ -16,14 +23,16 @@ const Stockes = () => {
         </div>
       </div>
       <div className={styles.cards}>
-        <div className={styles.card}>
-          <div className={styles.icon}></div>
-          <div className={styles.title}>Title</div>
-          <div className={styles.stats}>
-            <div className={styles.price}>$177.15</div>
-            <div className={styles.gain}>45%</div>
+        {(activeTab == 0 ? topGainers?.data?.top_gainers : topGainers?.data?.top_losers)?.map((gainer, i) => (
+          <div className={styles.card} key={`top_gainer_looser${i}`}>
+            <div className={styles.icon}></div>
+            <div className={styles.title}>{gainer?.ticker}</div>
+            <div className={styles.stats}>
+              <div className={styles.price}>${gainer?.price}</div>
+              <div className={styles.gain}>{gainer?.change_percentage}</div>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   )

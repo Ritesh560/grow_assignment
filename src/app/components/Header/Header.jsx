@@ -1,7 +1,7 @@
 import React from "react"
 import SearchBar from "../../../../libs/widgets/SearchBar/SearchBar"
 import styles from "./Header.module.scss"
-import TrendUp from "../../../../libs/icons/trend_up.svg"
+import TrendUp from "../../../../libs/assets/icons/trend_up.svg"
 import Image from "next/image"
 
 const Header = () => {

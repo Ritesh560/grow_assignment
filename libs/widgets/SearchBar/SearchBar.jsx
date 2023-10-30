@@ -2,7 +2,7 @@
 import { useEffect } from "react"
 import styles from "./SearchBar.module.scss"
 
-import Search from "../../icons/search.svg"
+import Search from "../../assets/icons/search.svg"
 import Image from "next/image"
 
 const SearchBar = ({ value, setValue, width = "100%", height, onSearch, className, onEnter, searbarRef = { current: null }, onSearchEmpty, placeholder = "Search", ...rest }) => {
