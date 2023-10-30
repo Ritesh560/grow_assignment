@@ -19,8 +19,7 @@ export default function Home() {
     <QueryClientProvider client={queryClient}>
       <main className={styles.main}>
         <Header />
-        {/* <Stockes /> */}
-        <StockDetails />
+        <Stockes />
       </main>
     </QueryClientProvider>
   )
