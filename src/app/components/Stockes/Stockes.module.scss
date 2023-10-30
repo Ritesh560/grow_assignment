@@ -1,5 +1,5 @@
 .stocksContainer {
-  padding: 30px 10% 0 10%;
+  padding: 30px 10% 20px 10%;
 
   .tabs {
     display: flex;
@@ -47,6 +47,9 @@
         height: 50px;
         border-radius: 50%;
         border: 1px solid rgb(154, 147, 147);
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .title {
@@ -59,6 +62,13 @@
         .gain {
           font-size: 14px;
           color: green;
+        }
+        .lose {
+          font-size: 14px;
+          color: rgb(227, 71, 71);
+          .downArrow {
+            transform: rotate(180deg);
+          }
         }
       }
     }
