@@ -7,7 +7,6 @@ import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "r
 
 import upArrow from "../../../../libs/assets/icons/up_arrow.svg"
 import downArrow from "../../../../libs/assets/icons/down_arrow.svg"
-import { data } from "./components/constants"
 
 function StockDetails({ selectedStock, setSelectedStock }) {
   const functionTypes = ["TIME_SERIES_INTRADAY", "TIME_SERIES_DAILY", "TIME_SERIES_WEEKLY", "TIME_SERIES_MONTHLY"]

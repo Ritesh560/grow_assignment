@@ -9,10 +9,9 @@ import downArrow from "../../../../libs/assets/icons/down_arrow.svg"
 import generalStock from "../../../../libs/assets/icons/general_stock.png"
 import StockDetails from "../Stockdetails/Stockdetails"
 
-const Stockes = () => {
+const Stockes = ({ selectedStock, setSelectedStock }) => {
   const [activeTab, setActiveTab] = useState(0)
   const { topStocks } = useStocks({})
-  const [selectedStock, setSelectedStock] = useState({})
 
   return (
     <div className={styles.stocks}>

@@ -4,10 +4,10 @@ import styles from "./Header.module.scss"
 import TrendUp from "../../../../libs/assets/icons/trend_up.svg"
 import Image from "next/image"
 
-const Header = () => {
+const Header = ({ setSelectedStock }) => {
   return (
     <div className={styles.headerContainer}>
-      <div className={styles.title}>
+      <div className={styles.title} onClick={() => setSelectedStock({})}>
         GrowwStonks <Image src={TrendUp} alt="Trend up" width={20} height={20} />
       </div>
       <div className={styles.searchbar}>
