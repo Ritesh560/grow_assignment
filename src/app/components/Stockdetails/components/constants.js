@@ -64,3 +64,7 @@ export const data = [
     close: 143.2,
   },
 ]
+
+export const graph_types = ["1D", "1W", "1M", "3M", "6M", "1Y"]
+export const function_types = ["TIME_SERIES_INTRADAY", "TIME_SERIES_DAILY", "TIME_SERIES_WEEKLY", "TIME_SERIES_MONTHLY"]
+export const function_responses = ["Time Series (60min)", "Time Series (Daily)", "Weekly Time Series", "Monthly Time Series"]

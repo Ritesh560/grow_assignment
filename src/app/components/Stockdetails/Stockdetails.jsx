@@ -7,23 +7,17 @@ import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "r
 
 import upArrow from "../../../../libs/assets/icons/up_arrow.svg"
 import downArrow from "../../../../libs/assets/icons/down_arrow.svg"
+import { function_responses, function_types, graph_types } from "./components/constants"
 
 function StockDetails({ selectedStock, setSelectedStock }) {
-  const functionTypes = ["TIME_SERIES_INTRADAY", "TIME_SERIES_DAILY", "TIME_SERIES_WEEKLY", "TIME_SERIES_MONTHLY"]
   const [functionType, setFunctionType] = useState(0)
-  const { stockDetails, stockGraph } = useStocks({ symbol: "IBM", interval: "60", functionType: functionTypes[functionType] })
-  const [graphData, setGraphData] = useState({
-    dayData: [],
-    weekData: [],
-    monthData: [],
-    quaterData: [],
-    halfYearData: [],
-    yearData: [],
-  })
+  const { stockDetails, stockGraph } = useStocks({ symbol: selectedStock?.ticker, interval: functionType === 0 && "60", functionType: function_types[functionType > 3 ? 3 : functionType] })
+  const [graphData, setGraphData] = useState([])
+  const [dataToShowMonthly, setDataToShowMonthly] = useState([])
 
   useEffect(() => {
     const dayDataArray = []
-    const mainObject = stockGraph?.data?.["Time Series (60min)"]
+    const mainObject = stockGraph?.data?.[function_responses[functionType > 3 ? 3 : functionType]]
     if (!mainObject) return
 
     const keys = Object.keys(mainObject)
@@ -34,18 +28,52 @@ function StockDetails({ selectedStock, setSelectedStock }) {
     }
 
     for (const key in mainObject) {
-      if (mainObject.hasOwnProperty(key) && key.startsWith(firstEntry)) {
+      if (mainObject.hasOwnProperty(key) && (functionType !== 0 || key.startsWith(firstEntry))) {
         const value = mainObject[key]["4. close"]
 
-        const dateTime = new Date(key)
-        const hours = dateTime.getHours().toString().padStart(2, "0")
-        const minutes = dateTime.getMinutes().toString().padStart(2, "0")
-        const timeString = `${hours}:${minutes}`
-        dayDataArray.push({ name: timeString, close: parseFloat(value) })
+        let timeStamp = key
+        if (functionType === 0) {
+          const dateTime = new Date(key)
+          const hours = dateTime.getHours().toString().padStart(2, "0")
+          const minutes = dateTime.getMinutes().toString().padStart(2, "0")
+          timeStamp = `${hours}:${minutes}`
+        }
+
+        dayDataArray.push({ name: timeStamp, close: parseFloat(value) })
       }
     }
-    setGraphData((prev) => ({ ...prev, dayData: dayDataArray }))
+    setGraphData(dayDataArray)
+    console.log("graphData", graphData)
   }, [stockGraph])
+
+  useEffect(() => {
+    if (functionType < 3 || !graphData?.length) return
+
+    const currentDate = new Date()
+
+    // Calculate the date for 3 months ago
+    const threeMonthsAgo = new Date()
+    threeMonthsAgo.setMonth(currentDate.getMonth() - 3)
+
+    // Calculate the date for 6 months ago
+    const sixMonthsAgo = new Date()
+    sixMonthsAgo.setMonth(currentDate.getMonth() - 6)
+
+    // Calculate the date for 1 year ago
+    const oneYearAgo = new Date()
+    oneYearAgo.setFullYear(currentDate.getFullYear() - 1)
+
+    if (functionType === 3) {
+      const pastThreeMonthsData = graphData.filter((item) => new Date(item.name) >= threeMonthsAgo && new Date(item.name) <= currentDate)
+      setDataToShowMonthly(pastThreeMonthsData)
+    } else if (functionType === 4) {
+      const pastSixMonthsData = graphData.filter((item) => new Date(item.name) >= sixMonthsAgo && new Date(item.name) <= currentDate)
+      setDataToShowMonthly(pastSixMonthsData)
+    } else {
+      const pastYearData = graphData.filter((item) => new Date(item.name) >= oneYearAgo && new Date(item.name) <= currentDate)
+      setDataToShowMonthly(pastYearData)
+    }
+  }, [functionType, graphData])
 
   return (
     <div className={styles.stockDetails}>
@@ -64,15 +92,21 @@ function StockDetails({ selectedStock, setSelectedStock }) {
         </div>
       </div>
       <div className={styles.graph}>
-        <LineChart width={800} height={300} data={graphData?.dayData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        <LineChart width={800} height={300} data={functionType > 2 ? dataToShowMonthly : graphData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
-          <Legend />
           <Line type="monotone" dataKey="close" stroke="#8884d8" dataConvertor={(value) => parseInt(value)} />
-          {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
         </LineChart>
+
+        <div className={styles.graphType}>
+          {graph_types?.map((type, i) => (
+            <span key={`graph_type_${type}`} onClick={() => setFunctionType(i)} className={functionType === i && styles.active}>
+              {type}
+            </span>
+          ))}
+        </div>
       </div>
       <div className={styles.description}>
         <h2>About {stockDetails?.data?.Name}</h2>

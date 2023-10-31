@@ -8,6 +8,6 @@ export const PublicApi = axios.create({
   baseURL: ENV.BACKEND,
   headers: {
     "Content-type": "application/json",
-    "User-Agent": "request",
+    // "User-Agent": "request",
   },
 })
