@@ -12,12 +12,12 @@ const useStocks = ({ symbol, interval, functionType }) => {
   const getStockDetails = () => {
     return PublicApi.get(`/query?function=OVERVIEW&symbol=${symbol}&apikey=${apikey}`)
   }
-  const { data: stockDetails, refetch: fetchStockDetails, isLoading: stockDetailsfetching } = useQuery(["getStockDetails", { symbol }], getStockDetails)
+  const { data: stockDetails, refetch: fetchStockDetails, isLoading: stockDetailsfetching } = useQuery(["getStockDetails", { symbol }], getStockDetails, { enabled: !!symbol })
 
   const getStockGraph = () => {
     return PublicApi.get(`/query?function=${functionType}&symbol=${symbol}${interval ? `&interval=${interval}min` : ""}&apikey=${apikey}`)
   }
-  const { data: stockGraph, refetch: fetchStockGraph, isLoading: stockGraphfetching } = useQuery(["getStockGraph", { symbol, interval, functionType }], getStockGraph)
+  const { data: stockGraph, refetch: fetchStockGraph, isLoading: stockGraphfetching } = useQuery(["getStockGraph", { symbol, interval, functionType }], getStockGraph, { enabled: !!symbol && !!functionType })
 
   return {
     //top stocks

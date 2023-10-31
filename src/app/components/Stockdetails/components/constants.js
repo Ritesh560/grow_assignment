@@ -1,44 +1,66 @@
 export const data = [
   {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
+    name: "19:0",
+    close: 142.63,
   },
   {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
+    name: "18:0",
+    close: 142.51,
   },
   {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
+    name: "17:0",
+    close: 142.63,
   },
   {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
+    name: "16:0",
+    close: 142.63,
   },
   {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
+    name: "15:0",
+    close: 142.62,
   },
   {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
+    name: "14:0",
+    close: 143.31,
   },
   {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
+    name: "13:0",
+    close: 143.44,
+  },
+  {
+    name: "12:0",
+    close: 142.85,
+  },
+  {
+    name: "11:0",
+    close: 143.59,
+  },
+  {
+    name: "10:0",
+    close: 143.78,
+  },
+  {
+    name: "9:0",
+    close: 144.44,
+  },
+  {
+    name: "8:0",
+    close: 143.03,
+  },
+  {
+    name: "7:0",
+    close: 143.26,
+  },
+  {
+    name: "6:0",
+    close: 142.95,
+  },
+  {
+    name: "5:0",
+    close: 143.34,
+  },
+  {
+    name: "4:0",
+    close: 143.2,
   },
 ]

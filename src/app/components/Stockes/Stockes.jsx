@@ -16,7 +16,7 @@ const Stockes = () => {
 
   return (
     <div className={styles.stocks}>
-      {selectedStock?.ticker ? (
+      {!selectedStock?.ticker ? (
         <div className={styles.stocksContainer}>
           <div className={styles.tabs}>
             <div className={styles.tab + " " + (activeTab === 0 && styles.active)} onClick={() => setActiveTab(0)}>
